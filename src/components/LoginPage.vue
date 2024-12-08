@@ -30,7 +30,7 @@
         <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
         <div class="additional-links">
           <p>Ещё нет аккаунта? <a href="/signup">Зарегистрироваться</a></p>
-          <p><a href="/forgot-password">Забыли пароль?</a></p>
+          <p><a href="/reset-password">Забыли пароль?</a></p>
         </div>
       </div>
     </div>
