@@ -62,13 +62,15 @@ export default {
 </script>
 
 <style>
+
 .login-page {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f0f4f8;
-  background-image: linear-gradient(120deg, #a3c9f1, #e2f3f5);
+  background-image: url("@/assets/Fon.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .modal {
