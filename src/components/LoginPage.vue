@@ -66,8 +66,9 @@ export default {
 .login-page {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start !important; /* Принудительное выравнивание сверху */
   min-height: 100vh;
+  padding-top: 10vh !important; /* Принудительный отступ сверху */
   background-image: url("@/assets/Fon.png");
   background-size: cover;
   background-position: center;
@@ -93,7 +94,7 @@ export default {
 h2 {
   font-size: 24px;
   margin-bottom: 10px;
-  color: #003366;
+  color: #885e44;
 }
 
 .subtitle {
@@ -110,7 +111,7 @@ h2 {
 label {
   display: block;
   font-size: 14px;
-  color: #003366;
+  color: #693b26;
   margin-bottom: 5px;
 }
 
@@ -123,13 +124,13 @@ input {
 
 input:focus {
   outline: none;
-  border-color: #3399ff;
+  border-color: #885e44;
 }
 
 .login-button {
   width: 100%;
   padding: 10px;
-  background-color: #3399ff;
+  background-color: #885e44;
   color: white;
   border: none;
   border-radius: 5px;
@@ -138,7 +139,7 @@ input:focus {
 }
 
 .login-button:hover {
-  background-color: #287acc;
+  background-color: #693b26;
 }
 
 .error {

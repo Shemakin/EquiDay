@@ -1,21 +1,23 @@
 <template>
   <div class="reset-password">
-    <h1>Reset Password</h1>
-    <form @submit.prevent="handlePasswordReset">
-      <div class="input-group">
-        <label for="email">Email:</label>
-        <input
-            type="email"
-            id="email"
-            v-model="email"
-            placeholder="Enter your email"
-            required
-        />
-      </div>
-      <button type="submit" class="btn-primary">Send Reset Link</button>
-      <p v-if="message" class="message">{{ message }}</p>
-      <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
-    </form>
+    <div class="form-box">
+      <h1>Восстановить пароль</h1>
+      <form @submit.prevent="handlePasswordReset">
+        <div class="input-group">
+          <label for="email">Email:</label>
+          <input
+              type="email"
+              id="email"
+              v-model="email"
+              placeholder="Enter your email"
+              required
+          />
+        </div>
+        <button type="submit" class="btn-primary">Send Reset Link</button>
+        <p v-if="message" class="message">{{ message }}</p>
+        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -55,26 +57,30 @@ export default {
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  padding: 20px;
+  padding: 40px;
   background-image: url("@/assets/Fon.png");
   background-size: cover;
   background-position: center;
 }
 
-h1 {
-  font-size: 24px;
-  margin-bottom: 10px; /* Уменьшен отступ */
-  text-align: center;
-  color: #2c3e50;
-}
-
-form {
-  margin-top: 5vh; /* Поднята форма выше */
+.form-box {
+  margin-top: 5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 400px;
+  padding: 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* Светлый фон с прозрачностью */
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #885e44;
 }
 
 .input-group {
@@ -100,7 +106,7 @@ input {
 }
 
 .btn-primary {
-  background-color: #4caf50;
+  background-color: #885e44;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -111,7 +117,7 @@ input {
 }
 
 .btn-primary:hover {
-  background-color: #45a049;
+  background-color: #693b26;
 }
 
 .message {

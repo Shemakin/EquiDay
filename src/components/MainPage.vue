@@ -3,10 +3,12 @@
     <div class="header"></div>
     <div class="content">
       <img src="@/assets/Logo.png" alt="Equiday Logo" class="logo">
-      <img src="@/assets/Autor.jpeg" alt="Creator Avatar" class="avatar">
       <div class="creator">
-        <h3>Creator</h3>
-        <p>Shemakin Vladlen</p>
+        <img src="@/assets/Autor.jpeg" alt="Creator Avatar" class="avatar">
+        <div class="creator-info">
+          <h3>Creator:</h3>
+          <p>Vladlen Milize</p>
+        </div>
       </div>
       <button class="log-in" @click="navigateToLogin">LOG IN</button>
     </div>
@@ -66,28 +68,51 @@ export default {
 .logo {
   width: 200px;
   height: 200px;
-}
-
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  margin-bottom: 50px;
 }
 
 .creator {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
+  align-items: center; /* Горизонтальное выравнивание */
+  gap: 15px; /* Расстояние между аватаром и текстом */
+}
+
+.avatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+
+.creator-info {
+  display: flex;
+  flex-direction: column; /* Вертикальная структура текста */
+  align-items: flex-start; /* Выровнять текст по левому краю */
+}
+
+.creator-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.creator-info p {
+  margin: 5px 0 0;
+  font-size: 16px;
+  color: #555555;
 }
 
 .log-in {
-  background-color: #f5f5f5;
-  color: #333;
-  padding: 15px 30px;
-  border: none;
+  margin-top: 50px;
+  background-color: #885e44;
+  color: white;
+  padding: 15px 60px;
+  border: 1px solid #000; /* Черная рамка */
   border-radius: 5px;
   font-size: 18px;
   cursor: pointer;
+}
+
+.log-in:hover {
+  background-color: #693b26;
 }
 </style>

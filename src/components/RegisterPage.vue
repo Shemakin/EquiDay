@@ -1,7 +1,7 @@
 <template>
   <div class="register-page">
     <div class="register-container">
-      <h2>Register</h2>
+      <h2>Регистрация</h2>
       <form @submit.prevent="register">
         <div class="input-group">
           <label for="username">Username:</label>
@@ -90,8 +90,9 @@ export default {
 .register-page {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   height: 100vh;
+  padding-top: 10vh !important;
   background-image: url("@/assets/Fon.png");
   background-size: cover;
   background-position: center;
@@ -132,7 +133,7 @@ h2 {
 button {
   width: 100%;
   padding: 12px;
-  background-color: #007bff;
+  background-color: #885e44;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -141,7 +142,7 @@ button {
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #693b26;
 }
 
 .error {
