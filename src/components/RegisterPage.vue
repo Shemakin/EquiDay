@@ -4,36 +4,46 @@
       <h2>Регистрация</h2>
       <form @submit.prevent="register">
         <div class="input-group">
-          <label for="username">Username:</label>
+          <label for="username">Имя пользователя:</label>
           <input
               type="text"
               id="username"
               v-model="username"
-              placeholder="Enter your username"
+              placeholder="Введите имя пользователя"
               required
           />
         </div>
         <div class="input-group">
-          <label for="password">Password:</label>
+          <label for="email">Электронная почта:</label>
+          <input
+              type="email"
+              id="email"
+              v-model="email"
+              placeholder="Введите ваш email"
+              required
+          />
+        </div>
+        <div class="input-group">
+          <label for="password">Пароль:</label>
           <input
               type="password"
               id="password"
               v-model="password"
-              placeholder="Enter your password"
+              placeholder="Введите пароль"
               required
           />
         </div>
         <div class="input-group">
-          <label for="confirm-password">Confirm Password:</label>
+          <label for="confirm-password">Повторите пароль:</label>
           <input
               type="password"
               id="confirm-password"
               v-model="confirmPassword"
-              placeholder="Confirm your password"
+              placeholder="Повторите пароль"
               required
           />
         </div>
-        <button type="submit">Register</button>
+        <button type="submit">Зарегистрироваться</button>
       </form>
       <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
       <p v-if="successMessage" class="success">{{ successMessage }}</p>
@@ -42,13 +52,14 @@
 </template>
 
 <script>
-import axios from "axios";
+import api from "../services/api"; // Подключение настроенного Axios
 
 export default {
   name: "RegisterPage",
   data() {
     return {
       username: "",
+      email: "",
       password: "",
       confirmPassword: "",
       errorMessage: "",
@@ -56,31 +67,32 @@ export default {
     };
   },
   methods: {
-    register() {
+    async register() {
       this.errorMessage = "";
       this.successMessage = "";
 
       // Проверка совпадения паролей
       if (this.password !== this.confirmPassword) {
-        this.errorMessage = "Passwords do not match.";
+        this.errorMessage = "Пароли не совпадают.";
         return;
       }
 
-      // Отправка данных на сервер
-      axios
-          .post("http://localhost:3000/api/register", {
-            username: this.username,
-            password: this.password,
-          })
-          .then(() => {
-            this.successMessage = "Registration successful!";
-            this.username = "";
-            this.password = "";
-            this.confirmPassword = "";
-          })
-          .catch((error) => {
-            this.errorMessage = error.response?.data?.message || "An error occurred.";
-          });
+      try {
+        // Отправка данных на сервер
+        const response = await api.post("/users/register", {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        });
+
+        this.successMessage = response.data.message || "Регистрация прошла успешно!";
+        this.username = "";
+        this.email = "";
+        this.password = "";
+        this.confirmPassword = "";
+      } catch (error) {
+        this.errorMessage = error.response?.data?.message || "Произошла ошибка при регистрации.";
+      }
     },
   },
 };

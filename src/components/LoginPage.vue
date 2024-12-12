@@ -6,12 +6,12 @@
         <p class="subtitle">Отслеживайте своё психологическое состояние и планируйте отдых!</p>
         <form @submit.prevent="login">
           <div class="input-group">
-            <label for="username">Имя пользователя:</label>
+            <label for="email">Email:</label>
             <input
-                type="text"
-                id="username"
-                v-model="username"
-                placeholder="Введите имя пользователя"
+                type="email"
+                id="email"
+                v-model="email"
+                placeholder="Введите ваш email"
                 required
             />
           </div>
@@ -21,7 +21,7 @@
                 type="password"
                 id="password"
                 v-model="password"
-                placeholder="Введите пароль"
+                placeholder="Введите ваш пароль"
                 required
             />
           </div>
@@ -29,7 +29,7 @@
         </form>
         <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
         <div class="additional-links">
-          <p>Ещё нет аккаунта? <a href="/signup">Зарегистрироваться</a></p>
+          <p>Ещё нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
           <p><a href="/reset-password">Забыли пароль?</a></p>
         </div>
       </div>
@@ -38,37 +38,44 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
       showModal: true,
-      username: '',
-      password: '',
+      email: "",
+      password: "",
       errorMessage: null,
     };
   },
   methods: {
-    login() {
-      // Логика проверки логина
-      if (this.username === 'user' && this.password === 'password') {
-        alert('Добро пожаловать в EquiDay!');
-        this.$router.push('/dashboard'); // Перенаправление на главную страницу после успешного входа
-      } else {
-        this.errorMessage = 'Неверное имя пользователя или пароль.';
+    async login() {
+      this.errorMessage = null;
+      try {
+        const response = await axios.post("http://localhost:3000/api/users/login", {
+          email: this.email,
+          password: this.password,
+        });
+
+        // Успешный вход
+        localStorage.setItem("token", response.data.token); // Сохранение токена
+        this.$router.push("/dashboard");
+      } catch (error) {
+        this.errorMessage = error.response?.data?.message || "Ошибка входа. Попробуйте снова.";
       }
     },
   },
 };
 </script>
 
-<style>
-
+<style scoped>
 .login-page {
   display: flex;
   justify-content: center;
-  align-items: flex-start !important; /* Принудительное выравнивание сверху */
+  align-items: flex-start;
   min-height: 100vh;
-  padding-top: 10vh !important; /* Принудительный отступ сверху */
+  padding-top: 10vh;
   background-image: url("@/assets/Fon.png");
   background-size: cover;
   background-position: center;
