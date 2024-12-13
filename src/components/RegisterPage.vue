@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import api from "../services/api"; // Подключение настроенного Axios
+import axios from "axios";
 
 export default {
   name: "RegisterPage",
@@ -78,8 +78,11 @@ export default {
       }
 
       try {
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL; // Получаем адрес API из .env
+        console.log("API_BASE_URL:", API_BASE_URL);
+
         // Отправка данных на сервер
-        const response = await api.post("/users/register", {
+        const response = await axios.post(`${API_BASE_URL}/api/register`, {
           username: this.username,
           email: this.email,
           password: this.password,
@@ -91,6 +94,7 @@ export default {
         this.password = "";
         this.confirmPassword = "";
       } catch (error) {
+        console.error("Ошибка регистрации:", error); // Лог ошибок
         this.errorMessage = error.response?.data?.message || "Произошла ошибка при регистрации.";
       }
     },
