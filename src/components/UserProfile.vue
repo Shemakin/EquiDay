@@ -1,18 +1,56 @@
 <template>
-  <div class="user-profile">
-    <div class="profile-header">
-      <img :src="user.avatar || defaultAvatar" alt="User Avatar" class="avatar" />
-      <h2>{{ user.name }}</h2>
-      <p class="email">{{ user.email }}</p>
-    </div>
-    <div class="profile-content">
-      <h3>Информация</h3>
-      <ul>
-        <li><strong>Имя:</strong> {{ user.name }}</li>
-        <li><strong>Email:</strong> {{ user.email }}</li>
-        <li><strong>Телефон:</strong> {{ user.phone || "Не указан" }}</li>
-      </ul>
-      <button @click="editProfile" class="edit-button">Редактировать профиль</button>
+  <div class="profile-container">
+    <div class="profile-box">
+      <div class="profile-header">
+        <span class="profile-title">Профиль сотрудника</span>
+      </div>
+
+      <div class="profile-info">
+        <div class="profile-item">
+          <label for="name">Имя:</label>
+          <input v-model="user.name" id="name" type="text" placeholder="Введите ваше имя" />
+        </div>
+        <div class="profile-item">
+          <label for="role">Должность:</label>
+          <input v-model="user.role" id="role" type="text" placeholder="Введите вашу должность" />
+        </div>
+        <div class="profile-item">
+          <label for="status">Статус:</label>
+          <input v-model="user.status" id="status" type="text" placeholder="Введите ваш статус" />
+        </div>
+        <div class="profile-item">
+          <label for="email">Электронная почта:</label>
+          <input v-model="user.email" id="email" type="email" placeholder="Введите ваш email" />
+        </div>
+
+        <!-- Градиентная полоска для ментального здоровья -->
+        <div class="mental-health">
+          <label>Ментальный уровень здоровья:</label>
+          <div
+              class="health-bar"
+              :style="{
+              background: `linear-gradient(to right, green ${user.mentalHealth}%, yellow ${user.mentalHealth}%, red ${user.mentalHealth + (100 - user.mentalHealth)}%)`
+            }"
+          ></div>
+        </div>
+
+        <div class="profile-actions">
+          <button @click="saveProfile" class="nav-button save-button">Сохранить изменения</button>
+        </div>
+      </div>
+
+      <!-- Навигационные кнопки с переходами -->
+      <div class="profile-navigation">
+        <router-link to="/calendar">
+          <button class="nav-button">Календарь с выходными</button>
+        </router-link>
+        <router-link to="/ai-chat">
+          <button class="nav-button">ИИ чат</button>
+        </router-link>
+        <router-link to="/survey">
+          <button class="nav-button">Еженедельный опросник</button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -22,91 +60,144 @@ export default {
   data() {
     return {
       user: {
-        name: "Владлен Шемакин",
-        email: "example@example.com",
-        phone: "123-456-7890",
-        avatar: null, // Путь к аватару, если есть
+        name: 'Иван Иванов',
+        role: 'Разработчик',
+        status: 'Работает в проекте',
+        email: 'ivan.ivanov@example.com',
+        mentalHealth: 75, // Начальный уровень здоровья (в процентах)
       },
-      defaultAvatar: "@/assets/default-avatar.png",
     };
   },
   methods: {
-    editProfile() {
-      // Логика для редактирования профиля
-      this.$router.push("/edit-profile");
-    },
+    saveProfile() {
+      // Логика сохранения профиля
+      console.log("Профиль сохранен:", this.user);
+    }
   },
 };
 </script>
 
 <style scoped>
-.user-profile {
+.profile-container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
+  height: 100vh;
   background-image: url("@/assets/Fon.png");
   background-size: cover;
   background-position: center;
-  min-height: 100vh;
+}
+
+.profile-box {
+  width: 100%;
+  max-width: 400px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box; /* Чтобы padding не выходил за границы */
 }
 
 .profile-header {
+  background-color: #693B26FF;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.profile-title {
+  font-size: 20px;
+}
+
+.profile-info {
+  margin-top: 20px;
+}
+
+.profile-item {
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-bottom: 30px;
 }
 
-.avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #885e44;
-}
-
-h2 {
-  margin: 10px 0;
-  color: #693b26;
-}
-
-.email {
+.profile-item label {
+  display: block;
   font-size: 14px;
-  color: #666;
+  font-weight: bold;
+  color: #693B26FF;
 }
 
-.profile-content {
+.profile-item input {
   width: 100%;
-  max-width: 400px;
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  margin-bottom: 10px;
-}
-
-.edit-button {
-  margin-top: 20px;
   padding: 10px;
-  background-color: #885e44;
-  color: white;
-  border: none;
+  margin-top: 5px;
+  font-size: 14px;
   border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  box-sizing: border-box; /* Чтобы поле ввода не вылезало за пределы */
+}
+
+.profile-item input:focus {
+  border-color: #885E44FF;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.save-button {
+  background-color: #693B26FF;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
   cursor: pointer;
   font-size: 16px;
-  width: 100%;
+  width: 100%; /* Делает кнопку такой же ширины, как и другие */
 }
 
-.edit-button:hover {
-  background-color: #693b26;
+.save-button:hover {
+  background-color: #885E44FF;
+}
+
+.profile-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.nav-button {
+  background-color: #693B26FF;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%; /* Делает кнопку такой же ширины, как и другие */
+}
+
+.nav-button:hover {
+  background-color: #885E44FF;
+}
+
+/* Градиентная полоска для ментального здоровья */
+.mental-health {
+  margin-top: 20px;
+}
+
+.health-bar {
+  height: 20px;
+  border-radius: 10px;
+  background: linear-gradient(to right, green 75%, yellow 75%, red 100%);
+  transition: width 0.3s ease;
+  width: 100%; /* Теперь полоска на всю ширину */
 }
 </style>

@@ -4,6 +4,9 @@ import MainPage from "@/components/MainPage.vue";
 import registerPage from "@/components/RegisterPage.vue";
 import ResetPassword from "@/components/ResetPassword.vue";
 import UserProfile from "@/components/UserProfile.vue";
+import WeeklySurvey from "@/components/WeeklySurvey.vue";
+import HolidayCalendar from "@/components/HolidayCalendar.vue";
+import AiChat from "@/components/AiChat.vue";
 
 const routes = [
     {
@@ -31,7 +34,26 @@ const routes = [
         name: "UserProfile",
         component:UserProfile,
     },
-
+    {
+        path: "/survey",
+        name: "WeeklySurvey",
+        component:WeeklySurvey,
+    },
+    {
+        path: "/calendar",
+        name: "HolidayCalendar",
+        component:HolidayCalendar,
+    },
+    {
+        path: "/ai-chat",
+        name: "AiChat",
+        component:AiChat,
+    },
+    {
+        path: "/user-profile",
+        name: "UserProfile",
+        component:UserProfile,
+    },
 ];
 
 const router = createRouter({
